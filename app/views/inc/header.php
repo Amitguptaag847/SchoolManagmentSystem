@@ -8,11 +8,3 @@
     <!-- Third party css files -->
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/bootstrap.min.css">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/fontawesome-all.css">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/index.css">
-
-    <!-- Own css files -->
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/style.css">
-
-    <title><?php echo SITENAME; ?></title>
-  </head>
-  <body>

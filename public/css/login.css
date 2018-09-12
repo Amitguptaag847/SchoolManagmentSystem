@@ -1,0 +1,10 @@
+body{
+  background-color: #c87bf2;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100%;
+}
+
+.form_container{
+  background-color: white;
+}
