@@ -1,4 +1,13 @@
-<?php require APPROOT . '/views/inc/header.php' ?>
+<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php
+  if(isLoggedIn()){
+    if(isSessionAdmin() == "no"){
+      redirect('students/dashboard');
+    } else if(isSessionAdmin() == "yes"){
+      redirect('admin/dashboard');
+    }
+  }
+?>
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/login.css">
 </head>
 </body>

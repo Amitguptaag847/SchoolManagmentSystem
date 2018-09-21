@@ -1,0 +1,29 @@
+body{
+  background-color: #EAEEF5;
+}
+
+.navbar{
+  background-color: #3085BD;
+}
+
+.left_section{
+  background-color: #3085BD;
+  min-height: 92.77vh;
+  position: fixed;
+}
+
+.profile_image{
+  height: 40px;
+}
+
+.sidebar a{
+  color:#FFF;
+}
+
+.sidebar a:hover:not(.active){
+  background-color: #3085BD;
+}
+
+.sidebar .active{
+  background-color: #0066B8;
+}
