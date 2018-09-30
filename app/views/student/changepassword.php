@@ -7,7 +7,7 @@
     redirect('users/login');
   }
 ?>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/css/studentFeeDetails.css">
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/css/studentChangePassword.css">
 
 </head>
 <body>
@@ -51,16 +51,16 @@
           <a class="nav-link" href="<?php echo URLROOT; ?>/students/attendance"><i class="far fa-calendar-alt"></i> Attendance</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo URLROOT; ?>/students/feedetails"><i class="fas fa-dollar-sign"></i> Fee Details</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/students/feedetails"><i class="fas fa-dollar-sign"></i> Fee Details</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/viewprofile"><i class="fas fa-user"></i></i> View Profile</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/students/viewprofile"><i class="fas fa-user"></i> View Profile</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/students/editprofile"><i class="fas fa-user-edit"></i> Edit Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/changepassword"><i class="fas fa-key"></i> Change Password</a>
+          <a class="nav-link active" href="<?php echo URLROOT; ?>/students/changepassword"><i class="fas fa-key"></i> Change Password</a>
         </li>
       </ul>
 
@@ -71,49 +71,41 @@
     <div class="col px-0">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb py-2 mx-3 mt-2 bg-light">
-          <li class="active" aria-current="page"><i class="fas fa-dollar-sign"></i> Fee Details</li>
+          <li class="active" aria-current="page"><i class="fas fa-key"></i> Change Password</li>
           <li class="breadcrumb-item ml-auto"><a href="<?php echo URLROOT; ?>/students/dashboard"><i class="fas fa-home"></i> Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-dollar-sign"></i> Fee Details</li>
+          <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-key"></i> Change Password</li>
         </ol>
       </nav>
 
-      <div class="row m-0">
-        <div class="col">
-          <table class="table table-striped table-secondary table-hover">
-            <thead class="bg-info text-white">
-              <tr class="text-center">
-                <th scope="col">Fee Month</th>
-                <th scope="col">Payment Date</th>
-                <th scope="col">Fee</th>
-                <th scope="col">Payment Method</th>
-                <th scope="col">Payment Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr class="text-center">
-                <td>September 2018</td>
-                <td>5 Sept 2018</td>
-                <td>5000</td>
-                <td>Cheque</td>
-                <td class="text-success">Paid</td>
-              </tr>
-              <tr class="text-center">
-                <td>September 2018</td>
-                <td>-</td>
-                <td>5000</td>
-                <td>-</td>
-                <td class="text-danger">Due</td>
-              </tr>
-              <tr class="text-center">
-                <td>September 2018</td>
-                <td>5 Sept 2018</td>
-                <td>5000</td>
-                <td>Cheque</td>
-                <td class="text-success">Paid</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+      <div class="row m-0 mt-5">
+        <div class="col-8">
+          <form class="p-2 pt-3 rounded bg-white" action="<?php echo URLROOT."/students/changepassword"; ?>" method="post">
+            <?php flash('changePassword'); ?>
+            <div class="row mt-3 align-items-center">
+              <div class="col-3 text-right">Old Password</div>
+              <div class="col-8">
+                  <input type="password" name="oldpassword" class="form-control" value="">
+              </div>
+            </div>
+            <div class="row my-3 align-items-center">
+              <div class="col-3 text-right">New Password</div>
+              <div class="col-8">
+                  <input type="password" name="newpassword" class="form-control" value="">
+              </div>
+            </div>
+            <div class="row my-3 align-items-center">
+              <div class="col-3 text-right">Confirm Password</div>
+              <div class="col-8">
+                  <input type="password" name="confirmpassword" class="form-control" value="">
+              </div>
+            </div>
+            <div class="row mb-3 align-items-center">
+              <div class="col-3 text-right"></div>
+              <div class="col-4">
+                  <input type="submit" name="" class="btn btn-block btn-primary" value="Change Password">
+              </div>
+            </div>
+          </form>
         </div>
       </div>
     </div>

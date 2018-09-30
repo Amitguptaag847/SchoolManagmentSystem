@@ -7,6 +7,7 @@
     redirect('users/login');
   }
 ?>
+
 <link rel="stylesheet" href="<?php echo URLROOT; ?>/css/studentDashboard.css">
 
 </head>
@@ -56,6 +57,12 @@
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/students/viewprofile"><i class="fas fa-user"></i> View Profile</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/students/editprofile"><i class="fas fa-user-edit"></i> Edit Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/students/changepassword"><i class="fas fa-key"></i> Change Password</a>
+        </li>
       </ul>
 
     </div>
@@ -72,8 +79,28 @@
       </nav>
 
       <div class="row m-0">
+
         <div class="col-3">
-          <div class="card text-white bg-primary">
+          <div class="card text-white bg-warning">
+            <div class="card-body rounded-top pt-3 pb-2">
+              <div class="row">
+                <div class="col-7">
+                  <h2 class="card-title my-0">Paid</h2>
+                  <p class="card-text">Fee Status</p>
+                </div>
+                <div class="col-4 rounded-bottom">
+                  <div class="display-4 py-0 my-0"><i class="fas fa-dollar-sign"></i></div>
+                </div>
+              </div>
+            </div>
+            <div class="card-footer py-1 text-center">
+              <small class="text-muted"><a href="#" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-3">
+          <div class="card text-white bg-success">
             <div class="card-body rounded-top pt-3 pb-2">
               <div class="row">
                 <div class="col-7">
@@ -90,12 +117,20 @@
             </div>
           </div>
         </div>
+
       </div>
+
+      <div class="row m-0">
+        <div class="col">
+          <div id="calender"></div>
+        </div>
+      </div>
+
     </div>
   </div>
 </div>
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery.js"></script>
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/bootstrap.min.js"></script>
-  <script type="text/javascript" src="<?php echo URLROOT; ?>/js/main.js"></script>
+  <script type="text/javascript" src="<?php echo URLROOT; ?>/js/studentDashboard.js"></script>
 </body>
 </html>

@@ -39,14 +39,18 @@
     public function changePassword($username,$password){
       $hashed_password = password_hash($password,PASSWORD_DEFAULT);
 
-      $this->db->query('UPDATE `sms`.`users` SET password = :password WHERE username = :username');
-      $this->db->bind(':username',$username);
-      $this->db->bind(':password',$hashed_password);
+      $this->db->beginTransaction();
+      try {
+        $this->db->query('UPDATE `sms`.`users` SET password = :password WHERE username = :username');
+        $this->db->bind(':username',$username);
+        $this->db->bind(':password',$hashed_password);
+        $this->db->execute();
 
-      if($this->db->execute()){
+        $this->db->commit();
         return true;
-      } else {
-        return false;
+      } catch (PDOException $e) {
+        $this->db->rollBack();
+        return $e->getMessage();
       }
     }
   }

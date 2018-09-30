@@ -57,6 +57,12 @@
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/students/viewprofile"><i class="fas fa-user"></i> View Profile</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/students/editprofile"><i class="fas fa-user-edit"></i> Edit Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/students/changepassword"><i class="fas fa-key"></i> Change Password</a>
+        </li>
       </ul>
 
     </div>
@@ -73,7 +79,105 @@
       </nav>
 
       <div class="row m-0">
-        <div class="col-3">
+        <div class="col">
+          <table class="table table-striped table-secondary table-hover">
+            <thead class="bg-info text-white">
+              <tr class="text-center">
+                <th scope="col">Subjects</th>
+                <th scope="col">Attended</th>
+                <th scope="col">Total Classes </th>
+                <th scope="col">Classes Canceled </th>
+                <th scope="col">Percentage Of Attendance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="text-center">
+                <th>Maths</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>History</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>Geography</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>Science</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>Hindi</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+              <tr class="text-center">
+                <th>English</td>
+                <td>26</td>
+                <td>45</td>
+                <td>6</td>
+                <td>67%</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
         </div>
       </div>
     </div>

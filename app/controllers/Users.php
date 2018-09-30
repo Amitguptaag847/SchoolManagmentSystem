@@ -100,8 +100,8 @@
 
         if(empty($data['error'])){
           $changedPassword = $this->userModel->changePassword($data['username'],$data['password']);
-          if($changedPassword){
-            flash('forgotPassword','Password Changed Successfully!!!');
+          if($changedPassword === true){
+            flash('forgotPassword','Password Changed Successfully!!!','alert alert-success rounded-0');
             redirect('users');
           } else {
             $data['error'] = 'Cannot Change Password';
