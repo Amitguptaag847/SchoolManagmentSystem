@@ -21,7 +21,7 @@
           sysdmin
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/edit">Edit Profile</a>
+          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/changepassword">Change Password</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/users/logout">Log out</a>
         </div>
@@ -91,90 +91,15 @@
               </tr>
             </thead>
             <tbody>
+              <?php foreach ($data as $key => $value): ?>
               <tr class="text-center">
-                <th>Maths</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
+                <th><?= $value['subject']; ?></td>
+                <td><?= $value['attended']; ?></td>
+                <td><?= $value['cancel']; ?></td>
+                <td><?= $value['total']; ?></td>
+                <td><?php if($value['total']!=0){ echo round($value['attended']*100/($value['total']-$value['cancel']));} else { echo  0;} ?>%</td>
               </tr>
-              <tr class="text-center">
-                <th>History</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>Geography</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>Science</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>Hindi</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
-              <tr class="text-center">
-                <th>English</td>
-                <td>26</td>
-                <td>45</td>
-                <td>6</td>
-                <td>67%</td>
-              </tr>
+              <?php endforeach; ?>
             </tbody>
           </table>
         </div>

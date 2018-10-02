@@ -20,7 +20,7 @@
           sysdmin
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/edit">Edit Profile</a>
+          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/changepassword">Change Password</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/users/logout">Log out</a>
         </div>
@@ -90,30 +90,17 @@
               </tr>
             </thead>
             <tbody>
+              <?php foreach ($data as $key => $value): ?>
               <tr class="text-center">
-                <td>September 2018</td>
-                <td>5 Sept 2018</td>
-                <td>5000</td>
-                <td>Cheque</td>
-                <td class="text-success">Paid</td>
+                <td><?= $value->fee_month; ?></td>
+                <td><?php if(isset($value->payment_date)){echo $value->payment_date;} else {echo "-";}; ?></td>
+                <td><?= $value->fee_amount; ?></td>
+                <td><?php if($value->payment_method != ""){echo $value->payment_method;} else {echo "-";}; ?></td>
+                <td <?php if($value->status == 1){echo 'class="text-success">Paid';} else {echo 'class="text-danger">Due';}; ?></td>
               </tr>
-              <tr class="text-center">
-                <td>September 2018</td>
-                <td>-</td>
-                <td>5000</td>
-                <td>-</td>
-                <td class="text-danger">Due</td>
-              </tr>
-              <tr class="text-center">
-                <td>September 2018</td>
-                <td>5 Sept 2018</td>
-                <td>5000</td>
-                <td>Cheque</td>
-                <td class="text-success">Paid</td>
-              </tr>
+            <?php endforeach; ?>
             </tbody>
           </table>
-        </div>
         </div>
       </div>
     </div>

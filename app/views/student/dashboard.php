@@ -21,7 +21,7 @@
           sysdmin
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/edit">Edit Profile</a>
+          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/changepassword">Change Password</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/users/logout">Log out</a>
         </div>
@@ -120,11 +120,13 @@
 
       </div>
 
-      <div class="row m-0">
-        <div class="col">
-          <div id="calender"></div>
+      <!-- <div class="row m-0 mt-3">
+        <div class="col-6 mx-0">
+          <div class="mb-3 bg-light border-0 rounded">
+
+          </div>
         </div>
-      </div>
+      </div> -->
 
     </div>
   </div>

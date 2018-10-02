@@ -27,3 +27,7 @@ body{
 .sidebar .active{
   background-color: #0066B8;
 }
+
+.form-control:focus{
+  box-shadow: none;
+}

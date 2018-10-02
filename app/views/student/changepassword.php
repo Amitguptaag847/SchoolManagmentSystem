@@ -20,7 +20,7 @@
           sysdmin
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/edit">Edit Profile</a>
+          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/changepassword">Change Password</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/users/logout">Log out</a>
         </div>

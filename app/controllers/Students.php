@@ -14,11 +14,13 @@
     }
 
     public function feedetails(){
-      $this->view('student/feedetails');
+      $data = $this->studentModal->getFeeDetails(getUserId());
+      $this->view('student/feedetails',$data);
     }
 
     public function attendance(){
-      $this->view('student/attendance');
+      $data = $this->studentModal->getAttendance(getUserId());
+      $this->view('student/attendance',$data);
     }
 
     public function editprofile(){
@@ -53,8 +55,6 @@
         if($verifyStudent === false){
           $data['error'] = "Wrong Password";
         }
-
-        //$data['error'] = '';
 
         if(empty($data['error'])){
           $changedPassword = $this->studentModal->changePassword(getUserId(),$_POST['newpassword']);
