@@ -18,7 +18,7 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          sysdmin
+          <?php echo getUsername(); ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
@@ -94,7 +94,7 @@
               </div>
             </div>
             <div class="card-footer py-1 text-center">
-              <small class="text-muted"><a href="#" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
+              <small class="text-muted"><a href="<?= URLROOT; ?>/students/feedetails" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
             </div>
           </div>
         </div>
@@ -113,7 +113,7 @@
               </div>
             </div>
             <div class="card-footer py-1 text-center">
-              <small class="text-muted"><a href="#" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
+              <small class="text-muted"><a href="<?= URLROOT; ?>/students/attendance" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
             </div>
           </div>
         </div>
@@ -130,7 +130,7 @@
 
     </div>
   </div>
-</div>
+
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery.js"></script>
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/studentDashboard.js"></script>

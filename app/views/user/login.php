@@ -4,7 +4,7 @@
     if(isSessionAdmin() == "no"){
       redirect('students/dashboard');
     } else if(isSessionAdmin() == "yes"){
-      redirect('admin/dashboard');
+      redirect('admins/dashboard');
     }
   }
 ?>
@@ -15,8 +15,9 @@
   <div class="container pt-5 h-100">
     <div class="row h-100 mt-4 pt-5 justify-content-center">
       <div class="col-4 mt-5 pt-3 pb-3 form_container">
-        <form action="<?php echo URLROOT."/users/index"; ?>" method="post" class="mt-2 mb-3 p-3 text-center">
+        <form action="<?php echo URLROOT."/users/index"; ?>" method="post" class="mt-2 mb-3 p-3">
           <?php flash('forgotPassword'); ?>
+          <?php flash('register'); ?>
           <div class="form-group">
             <input type="text" name="username" class="form-control rounded-0" placeholder="Username" value="<?php echo $data['username']; ?>" required>
           </div>
@@ -27,7 +28,7 @@
             <input type="submit" name="" value="Login" class="btn btn-block btn-primary rounded-0">
           </div>
           <div class="alert alert-danger rounded-0 <?php echo (!empty($data['error']))? '' : 'd-none'; ?>"><?php echo $data['error']; ?></div>
-          <a href="<?php echo URLROOT."/users/forgot"; ?>">Forgot password?</a>
+          <a href="<?php echo URLROOT."/users/forgot"; ?>" class="mr-5">Forgot password?</a><a href="<?php echo URLROOT."/users/register"; ?>" class="ml-5 pl-4 mr-0">register</a>
         </form>
       </div>
     </div>

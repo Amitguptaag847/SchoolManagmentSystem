@@ -45,7 +45,7 @@
 
       <ul class="nav mt-2 sidebar flex-column">
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="<?php echo URLROOT; ?>/admins/addstudent"><i class="fas fa-user-plus"></i> Add Student</a>
@@ -69,7 +69,7 @@
           <a class="nav-link" href="<?php echo URLROOT; ?>/admins/maintainattendance"><i class="far fa-calendar-alt"></i> Maintain Attendance</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/maintainfee"> <i class="fas fa-dollar-sign"></i> &nbsp;Maintain Fee</a>
+          <a class="nav-link active" href="<?php echo URLROOT; ?>/admins/maintainfee"><i class="fas fa-dollar-sign"></i> &nbsp;Maintain Fee</a>
         </li>
       </ul>
 
@@ -80,89 +80,76 @@
     <div class="col px-0">
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb py-2 mx-3 mt-2 bg-light">
-          <li class="active" aria-current="page"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+          <li class="active" aria-current="page"><i class="fas fa-dollar-sign"></i> &nbsp;Maintain Fee</li>
           <li class="breadcrumb-item ml-auto"><a href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fas fa-home"></i> Home</a></li>
-          <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-tachometer-alt"></i> Dashboard</li>
+          <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-dollar-sign"></i> &nbsp;Maintain Fee</li>
         </ol>
       </nav>
 
-      <div class="row m-0">
-        <div class="col-3">
-          <div class="card text-white bg-primary">
-            <div class="card-body rounded-top pt-3 pb-2">
-              <div class="row">
-                <div class="col-7">
-                  <h3 class="card-title my-0">Maintain</h3>
-                  <p class="card-text">Attendance</p>
+      <div class="row m-3">
+        <div class="col py-2 bg-light border border-info rounded">
+          <div class="row">
+            <div class="col-5">
+              <form class="" action="index.html" method="post">
+                <div class="row">
+                  <div class="col-5 form-group my-0">
+                    <input type="text" name="search_keyword" value="" class="form-control" placeholder="Enter Keyword" required>
+                  </div>
+                  <div class="col-4 form-group my-0">
+                    <select class="form-control" name="search_type">
+                      <option value="" selected disabled>Search By</option>
+                      <option value="username">Username</option>
+                      <option value="roll_number">Roll Number</option>
+                      <option value="fullname">Full Name</option>
+                    </select>
+                  </div>
+                  <div class="col-2 form-group my-0">
+                    <input type="submit" name="search" value="Search" class="btn btn-primary">
+                  </div>
                 </div>
-                <div class="col-4 rounded-bottom">
-                  <div class="display-4 py-0 my-0"><i class="far fa-calendar-alt"></i></div>
-                </div>
-              </div>
+              </form>
             </div>
-            <div class="card-footer py-1 text-center">
-              <small class="text-muted"><a href="<?= URLROOT; ?>/admins/maintainattendance" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-3">
-          <div class="card text-white bg-success">
-            <div class="card-body rounded-top pt-3 pb-2">
-              <div class="row">
-                <div class="col-7">
-                  <h3 class="card-title my-0">Add</h3>
-                  <p class="card-text">Students</p>
-                </div>
-                <div class="col-4 rounded-bottom">
-                  <div class="display-4 py-0 my-0"><i class="fas fa-user-plus"></i></div>
-                </div>
-              </div>
+            <div class="col-1 form-group my-0 text-center">
+              <p class="m-0 w-100 pt-2">OR</p>
             </div>
-            <div class="card-footer py-1 text-center">
-              <small class="text-muted"><a href="<?= URLROOT; ?>/admins/addstudent" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
-            </div>
-          </div>
-        </div>
 
-        <div class="col-3">
-          <div class="card text-white bg-info">
-            <div class="card-body rounded-top pt-3 pb-2">
-              <div class="row">
-                <div class="col-7">
-                  <h3 class="card-title my-0">Edit</h3>
-                  <p class="card-text">Student Profile</p>
+            <div class="col-6">
+              <form class="" action="index.html" method="post">
+                <div class="row">
+                  <div class="col-4 form-group m-0">
+                    <select class="form-control" name="student_class">
+                      <option value="" disabled selected>Class</option>
+                      <option value="5">5th</option>
+                      <option value="6">6th</option>
+                      <option value="7">7th</option>
+                      <option value="8">8th</option>
+                      <option value="9">9th</option>
+                      <option value="10">10th</option>
+                      <option value="11">11th</option>
+                      <option value="12">12th</option>
+                      <option value="allclass">All Class</option>
+                    </select>
+                  </div>
+                  <div class="col-4 form-group m-0">
+                    <select class="form-control" name="student_section">
+                      <option value="" disabled selected>Section</option>
+                      <option value="a">Section A</option>
+                      <option value="b">Section B</option>
+                      <option value="c">Section C</option>
+                      <option value="allsection">All section</option>
+                    </select>
+                  </div>
+                  <div class="col- form-group m-0">
+                    <input type="submit" name="go" class="btn btn-warning" value="Go!">
+                  </div>
                 </div>
-                <div class="col-4 rounded-bottom">
-                  <div class="display-4 py-0 my-0"><i class="fas fa-user-edit"></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer py-1 text-center">
-              <small class="text-muted"><a href="<?= URLROOT; ?>/admins/editstudentprofile" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-3">
-          <div class="card text-white bg-warning">
-            <div class="card-body rounded-top pt-3 pb-2">
-              <div class="row">
-                <div class="col-7">
-                  <h3 class="card-title my-0">Maintain</h3>
-                  <p class="card-text">Fee</p>
-                </div>
-                <div class="col-4 rounded-bottom">
-                  <div class="display-4 py-0 my-0"><i class="fas fa-dollar-sign"></i></div>
-                </div>
-              </div>
-            </div>
-            <div class="card-footer py-1 text-center">
-              <small class="text-muted"><a href="<?= URLROOT; ?>/admins/maintainfee" class="text-white">More info <i class="fas fa-arrow-circle-up"></i></a></small>
+              </form>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 

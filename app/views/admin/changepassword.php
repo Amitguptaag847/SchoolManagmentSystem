@@ -3,11 +3,11 @@
   if(!isLoggedIn()){
     redirect('users/login');
   }
-  if(isSessionAdmin() != "no"){
+  if(isSessionAdmin() != "yes"){
     redirect('users/login');
   }
 ?>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/css/studentChangePassword.css">
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/css/adminChangePassword.css">
 
 </head>
 <body>
@@ -20,8 +20,8 @@
           <?php echo getUsername(); ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
-          <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/changepassword">Change Password</a>
+          <a class="dropdown-item" href="<?php echo URLROOT; ?>/admins/editprofile">Edit Profile</a>
+          <a class="dropdown-item" href="<?php echo URLROOT; ?>/admins/changepassword">Change Password</a>
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/users/logout">Log out</a>
         </div>
       </li>
@@ -36,31 +36,40 @@
       <!--User info-->
       <div class="row align-items-center profile_details text-white mt-2">
         <div class="col-3">
-          <img src="<?php echo URLROOT; ?>/img/student.png" class="profile_image rounded-circle pl-1" alt="">
+          <img src="<?php echo URLROOT; ?>/img/admin.png" class="profile_image rounded-circle pl-1" alt="">
         </div>
         <div class="col-9">
-          <p class="m-0"><i>Student</i></p>
+          <p class="m-0"><i>Admin</i></p>
         </div>
       </div>
 
       <ul class="nav mt-2 sidebar flex-column">
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/attendance"><i class="far fa-calendar-alt"></i> Attendance</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/addstudent"><i class="fas fa-user-plus"></i> Add Student</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/feedetails"><i class="fas fa-dollar-sign"></i> Fee Details</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/viewstudentprofile"><i class="fas fa-user-graduate"></i> View Student Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/viewprofile"><i class="fas fa-user"></i> View Profile</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/editstudentprofile"><i class="fas fa-user-edit"></i> Edit Student Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="<?php echo URLROOT; ?>/students/editprofile"><i class="fas fa-user-edit"></i> Edit Profile</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/viewprofile"><i class="fas fa-user-tie"></i> View your Profile</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="<?php echo URLROOT; ?>/students/changepassword"><i class="fas fa-key"></i> Change Password</a>
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/editprofile"><i class="fas fa-user-edit"></i> Edit your Profile</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="<?php echo URLROOT; ?>/admins/changepassword"><i class="fas fa-key"></i> Change Password</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/maintainattendance"><i class="far fa-calendar-alt"></i> Maintain Attendance</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="<?php echo URLROOT; ?>/admins/maintainfee"> <i class="fas fa-dollar-sign"></i> &nbsp;Maintain Fee</a>
         </li>
       </ul>
 
@@ -72,14 +81,14 @@
       <nav aria-label="breadcrumb">
         <ol class="breadcrumb py-2 mx-3 mt-2 bg-light">
           <li class="active" aria-current="page"><i class="fas fa-key"></i> Change Password</li>
-          <li class="breadcrumb-item ml-auto"><a href="<?php echo URLROOT; ?>/students/dashboard"><i class="fas fa-home"></i> Home</a></li>
+          <li class="breadcrumb-item ml-auto"><a href="<?php echo URLROOT; ?>/admins/dashboard"><i class="fas fa-home"></i> Home</a></li>
           <li class="breadcrumb-item active" aria-current="page"><i class="fas fa-key"></i> Change Password</li>
         </ol>
       </nav>
 
       <div class="row m-0 mt-5">
         <div class="col-8">
-          <form class="p-2 pt-3 rounded bg-white" action="<?php echo URLROOT."/students/changepassword"; ?>" method="post">
+          <form class="p-2 pt-3 rounded bg-white" action="<?php echo URLROOT."/admins/changepassword"; ?>" method="post">
             <?php flash('changePassword'); ?>
             <div class="row mt-3 align-items-center">
               <div class="col-3 text-right">Old Password</div>

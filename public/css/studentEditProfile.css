@@ -31,3 +31,12 @@ body{
 .form-control:focus{
   box-shadow: none;
 }
+
+.input-group-prepend {
+  width : 40%; /*adjust as needed*/
+}
+
+.input-group-prepend span {
+  width: 100%;
+  overflow: hidden;
+}

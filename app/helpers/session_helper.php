@@ -55,6 +55,14 @@
     }
   }
 
+  function getUsername(){
+    if(isset($_SESSION['username'])){
+      return $_SESSION['username'];
+    } else {
+      return false;
+    }
+  }
+
   function isSessionAdmin(){
     if(isset($_SESSION['sessionAdmin'])){
       return $_SESSION['sessionAdmin'];

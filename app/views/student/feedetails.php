@@ -17,7 +17,7 @@
     <ul class="navbar-nav ml-auto">
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle py-0" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          sysdmin
+          <?php echo getUsername(); ?>
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <a class="dropdown-item" href="<?php echo URLROOT; ?>/students/editprofile">Edit Profile</a>
@@ -105,7 +105,7 @@
       </div>
     </div>
   </div>
-</div>
+
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/jquery.js"></script>
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="<?php echo URLROOT; ?>/js/main.js"></script>

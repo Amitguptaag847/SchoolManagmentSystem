@@ -4,7 +4,7 @@
     if(isSessionAdmin() == "no"){
       redirect('students/dashboard');
     } else if(isSessionAdmin() == "yes"){
-      redirect('admin/dashboard');
+      redirect('admins/dashboard');
     }
   }
 ?>
