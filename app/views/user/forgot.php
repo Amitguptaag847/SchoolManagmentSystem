@@ -32,6 +32,7 @@
             <input type="submit" name="" value="Change Password" class="btn btn-block btn-primary rounded-0">
           </div>
           <div class="alert alert-danger rounded-0 <?php echo (!empty($data['error']))? '' : 'd-none'; ?>"><?php echo $data['error']; ?></div>
+          <a href="<?php echo URLROOT; ?>/users/login">Login</a>
         </form>
       </div>
     </div>

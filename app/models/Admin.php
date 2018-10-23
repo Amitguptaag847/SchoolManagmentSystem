@@ -93,8 +93,15 @@
         $this->db->bind(':fathers_mobile_number',$data['fathers_mobile_number']);
         $this->db->execute();
 
-        $this->db->commit();
+        //Initializing the attendance data
+        for($i=1;$i<=7;$i++){
+          $this->db->query('INSERT INTO `sms`.`attendance` (user_id,subject_id) values (:user_id,:subject_id)');
+          $this->db->bind(':user_id',$user_id);
+          $this->db->bind(':subject_id',$i);
+          $this->db->execute();
+        }
 
+        $this->db->commit();
         return true;
       } catch (PDOException $e) {
         $this->db->rollBack();
@@ -480,7 +487,96 @@
         return $e->getMessage();
       }
     }
+
+    public function getAttendanceDetails($student_id){
+      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE user_id = :user_id');
+      $this->db->bind(':user_id',$student_id);
+
+      $attendance = $this->db->resultSet();
+
+      $dataArray = array();
+
+      foreach ($attendance as $key => $value) {
+        $this->db->query('SELECT * FROM `sms`.`subjects` WHERE subject_id = :subject_id');
+        $this->db->bind(':subject_id',$value->subject_id);
+
+        $subjectData = $this->db->single();
+
+        $data = array();
+        $data['subject'] = $subjectData->subject_name;
+        $data['subject_id'] = $subjectData->subject_id;
+        $data['attended'] = $value->attended;
+        $data['cancel'] = $value->cancel;
+        $data['total'] = $value->total;
+
+        $dataArray[$key] = $data;
+      }
+      $dataArray['student_id']=$student_id;
+
+      return $dataArray;
+    }
+
+    public function updateAttendance($student_id,$subject_id,$attendance_increment_by,$cancel_increment_by){
+      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE user_id = :user_id AND subject_id = :subject_id');
+      $this->db->bind(':user_id',$student_id);
+      $this->db->bind(':subject_id',$subject_id);
+      $data = $this->db->single();
+
+      $attended = $attendance_increment_by + $data->attended;
+      $cancel = $cancel_increment_by + $data->cancel;
+      $total = 1 + $data->total;
+
+      $this->db->beginTransaction();
+      try {
+        $this->db->query('UPDATE `sms`.`attendance` SET attended = :attended , cancel = :cancel , total =:total WHERE user_id = :user_id AND subject_id = :subject_id');
+        $this->db->bind(':attended',$attended);
+        $this->db->bind(':cancel',$cancel);
+        $this->db->bind(':total',$total);
+        $this->db->bind(':user_id',$student_id);
+        $this->db->bind(':subject_id',$subject_id);
+        $this->db->execute();
+
+        $this->db->commit();
+        return true;
+      } catch(PDOException $e){
+        $this->db->rollBack();
+        return $e->getMessage();
+      }
+    }
+
+    public function getFeeDetails($student_id){
+      $this->db->query("SELECT *FROM `sms`.`fee` WHERE user_id = :user_id ORDER BY fee_id DESC");
+      $this->db->bind(':user_id',$student_id);
+
+      $data = array();
+
+      $result = $this->db->resultSet();
+      foreach ($result as $value) {
+        $data[] = $value;
+      }
+      $data["student_id"]=$student_id;
+      return $data;
+    }
+
+
+    public function addFee($data){
+      $this->db->beginTransaction();
+      try{
+        $this->db->query("INSERT INTO `sms`.`fee` (user_id,fee_month,payment_date,fee_amount,payment_method,status) VALUES (:user_id,:fee_month,:payment_date,:fee_amount,:payment_method,:status)");
+        $this->db->bind(":user_id",$data['student_id']);
+        $this->db->bind(":fee_month",$data['fee_month']);
+        $this->db->bind(":payment_date",$data['payment_date']);
+        $this->db->bind(":fee_amount",$data['fee_amount']);
+        $this->db->bind(":payment_method",$data['payment_method']);
+        $this->db->bind(":status",$data['status']);
+        $this->db->execute();
+
+        $this->db->commit();
+        return true;
+      } catch (PDOException $e) {
+        $this->db->rollBack();
+        return false;
+      }
+    }
   }
-
-
 ?>

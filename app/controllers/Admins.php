@@ -89,7 +89,7 @@
               flash('addstudent','Student Added Successfully!!!','alert alert-success rounded');
               redirect('admins/addstudent');
             } else {
-              $data['error'] = 'Internal Error try after sometime';
+              $data['error'] = $response.' Internal Error try after sometime';
 
               $this->view('admin/addstudent',$data);
             }
@@ -397,14 +397,137 @@
       }
     }
 
-    public function maintainfee(){
-      //$data = $this->studentModel->getFeeDetails(getUserId());
-      $this->view('admin/maintainfee');
+    public function maintainfee($student_id = ""){
+      if($student_id != ""){
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+          $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+          $data = [
+            "student_id"=>$student_id,
+            "fee_month"=>$_POST['fee_month'],
+            "payment_date"=>$_POST['payment_date'],
+            "fee_amount"=>$_POST['fee_amount'],
+            "payment_method"=>$_POST['payment_method'],
+            "status"=>0,
+            "error"=>""
+          ];
+          if(!empty($data['fee_month']) && !empty($data['payment_date']) && !empty($data['fee_amount']) && !empty($data['payment_method'])){
+            $data['status']=1;
+          }
+
+          $response = $this->adminModel->addFee($data);
+          if($response === true){
+            flash('addFee','Fee Details Added!!','alert alert-success rounded');
+            $data = $this->adminModel->getFeeDetails($student_id);
+          } else {
+            flash('addFee','Select Payment Method!!','alert alert-danger rounded');
+            $data = $this->adminModel->getFeeDetails($student_id);
+          }
+        } else {
+          $data = array();
+          $data = $this->adminModel->getFeeDetails($student_id);
+        }
+        $this->view('admin/maintainfee',$data);
+      } else if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+        $data = array();
+        if(isset($_POST['search'])){
+          if($_POST['search_type'] == 'username'){
+            $data = $this->adminModel->getStudentDetailsByUsername($_POST['search_keyword']);
+          } else if ($_POST['search_type'] == 'rollnumber') {
+            $data = $this->adminModel->getStudentDetailsByRollnumber($_POST['search_keyword']);
+          } else if ($_POST['search_type'] == 'fullname') {
+            $data = $this->adminModel->getStudentDetailsByFullname($_POST['search_keyword']);
+          }
+        } else if (isset($_POST['go'])) {
+          if($_POST['class']=='allclass' && $_POST['section']=='allsection'){
+            $data = $this->adminModel->getAllStudentDetails();
+          } else if($_POST['class']=='allclass'){
+            $data = $this->adminModel->getStudentDetailsBySection($_POST['section']);
+          } else if($_POST['section']=='allsection'){
+            $data = $this->adminModel->getStudentDetailsByClass($_POST['class']);
+          } else {
+            $data = $this->adminModel->getStudentDetailsByClassSection($_POST['class'],$_POST['section']);
+          }
+        }
+
+        //Checking Student found or not
+        if(count($data)==0){
+          $data['student_not_found'] = true;
+        }
+        $this->view('admin/maintainfee',$data);
+      } else {
+        $this->view('admin/maintainfee');
+      }
     }
 
-    public function maintainattendance(){
-      // $data = $this->studentModel->getAttendance(getUserId());
-      $this->view('admin/maintainattendance');
+    public function maintainattendance($student_id = "",$subject_id=""){
+      if(is_Numeric($student_id) && $student_id != ""){
+        if($subject_id != "") {
+          if(is_Numeric($subject_id) && $subject_id>0 && $subject_id<8){
+            if($_SERVER['REQUEST_METHOD']=="POST"){
+              $attendance = strtolower($_POST['attendance']);
+              $attendance_increment_by = 0;
+              $cancel_increment_by = 0;
+              $response = false;
+              if($attendance=="present"){
+                $attendance_increment_by = 1;
+                $response = $this->adminModel->updateAttendance($student_id,$subject_id,$attendance_increment_by,$cancel_increment_by);
+              } else if($attendance=="absent"){
+                $response = $this->adminModel->updateAttendance($student_id,$subject_id,$attendance_increment_by,$cancel_increment_by);
+              } else if($attendance=="cancel"){
+                $cancel_increment_by = 1;
+                $response = $this->adminModel->updateAttendance($student_id,$subject_id,$attendance_increment_by,$cancel_increment_by);
+              }
+              if($response===true){
+                flash("attendanceUpdateResult","Attendance Updated!!!!","alert alert-success rounded");
+              } else if($response===false){
+                flash("attendanceUpdateResult","Wrong value given!!!!","alert alert-danger rounded");
+              } else {
+                flash("attendanceUpdateResult","Internal error try after sometime!!","alert alert-danger rounded");
+              }
+            }
+          } else {
+            flash("attendanceUpdateResult","Unknown Subject!!","alert alert-danger rounded");
+          }
+          $data = $this->adminModel->getAttendanceDetails($student_id);
+          $this->view('admin/maintainattendance',$data);
+        } else {
+          $data = array();
+          $data = $this->adminModel->getAttendanceDetails($student_id);
+        }
+        $this->view('admin/maintainattendance',$data);
+      } else if($_SERVER['REQUEST_METHOD'] == 'POST') {
+        $_POST = filter_input_array(INPUT_POST,FILTER_SANITIZE_STRING);
+        $data = array();
+        if(isset($_POST['search'])){
+          if($_POST['search_type'] == 'username'){
+            $data = $this->adminModel->getStudentDetailsByUsername($_POST['search_keyword']);
+          } else if ($_POST['search_type'] == 'rollnumber') {
+            $data = $this->adminModel->getStudentDetailsByRollnumber($_POST['search_keyword']);
+          } else if ($_POST['search_type'] == 'fullname') {
+            $data = $this->adminModel->getStudentDetailsByFullname($_POST['search_keyword']);
+          }
+        } else if (isset($_POST['go'])) {
+          if($_POST['class']=='allclass' && $_POST['section']=='allsection'){
+            $data = $this->adminModel->getAllStudentDetails();
+          } else if($_POST['class']=='allclass'){
+            $data = $this->adminModel->getStudentDetailsBySection($_POST['section']);
+          } else if($_POST['section']=='allsection'){
+            $data = $this->adminModel->getStudentDetailsByClass($_POST['class']);
+          } else {
+            $data = $this->adminModel->getStudentDetailsByClassSection($_POST['class'],$_POST['section']);
+          }
+        }
+
+        //Checking Student found or not
+        if(count($data)==0){
+          $data['student_not_found'] = true;
+        }
+        $this->view('admin/maintainattendance',$data);
+      } else {
+        $this->view('admin/maintainattendance');
+      }
     }
 
     public function changepassword(){

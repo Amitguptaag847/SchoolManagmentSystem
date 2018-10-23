@@ -127,6 +127,9 @@
                 <div class="col-6 form-group">
                   <input type="submit" name="next" class="form-control btn btn-primary btn-block" value="Register">
                 </div>
+                <div class="col-6 form-group">
+                  <a href="<?php echo URLROOT; ?>/users/login" class="btn btn-secondary btn-block">Go to Login</a>
+                </div>
               </div>
 
             </div>

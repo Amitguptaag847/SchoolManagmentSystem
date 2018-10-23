@@ -121,7 +121,7 @@
     }
 
     public function getFeeDetails($user_id){
-      $this->db->query("SELECT *FROM `sms`.`fee` WHERE user_id = :user_id");
+      $this->db->query("SELECT *FROM `sms`.`fee` WHERE user_id = :user_id ORDER BY fee_id DESC");
       $this->db->bind(':user_id',$user_id);
 
       $data = array();
