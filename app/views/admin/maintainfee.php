@@ -223,7 +223,7 @@
                     <div class="input-group-prepend">
                       <span class="input-group-text bg-info text-white" id="payment_date_addon">Payment Date</span>
                     </div>
-                    <input type="date" name="payment_date" value="" class="form-control">
+                    <input type="date" name="payment_date" value="" min="2017-11-02" max="20<?php echo date("y-m-d"); ?>" class="form-control" required>
                   </div>
                   <div class="col-2 form-group my-0">
                     <input type="number" name="fee_amount" value="" class="form-control" placeholder="Fee Amount" required>
@@ -231,7 +231,6 @@
                   <div class="col-3 form-group my-0">
                     <select class="form-control" name="payment_method" required>
                       <option value="" disabled selected>Payment Method</option>
-                      <option value="-">NA</option>
                       <option value="cash">Cash</option>
                       <option value="cheque">Cheque</option>
                     </select>
@@ -263,7 +262,7 @@
               <?php foreach ($data as $key => $value): ?>
               <?php if($key!=="student_id"): ?>
               <tr class="text-center">
-                <td><?= $value->fee_month; ?></td>
+                <td><?= ucfirst($value->fee_month); ?></td>
                 <td><?php if(isset($value->payment_date)){echo $value->payment_date;} else {echo "-";}; ?></td>
                 <td><?= $value->fee_amount; ?></td>
                 <td><?php if($value->payment_method != ""){echo $value->payment_method;} else {echo "-";}; ?></td>

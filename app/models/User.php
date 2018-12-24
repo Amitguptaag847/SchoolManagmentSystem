@@ -95,6 +95,14 @@
         $this->db->bind(':fathers_mobile_number',$data['fathers_mobile_number']);
         $this->db->execute();
 
+        //Initializing the attendance data
+        // for($i=1;$i<=7;$i++){
+        //   $this->db->query('INSERT INTO `sms`.`attendance` (user_id,subject_id) values (:user_id,:subject_id)');
+        //   $this->db->bind(':user_id',$user_id);
+        //   $this->db->bind(':subject_id',$i);
+        //   $this->db->execute();
+        // }
+
         $this->db->commit();
 
         return true;

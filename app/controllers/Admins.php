@@ -414,14 +414,18 @@
           if(!empty($data['fee_month']) && !empty($data['payment_date']) && !empty($data['fee_amount']) && !empty($data['payment_method'])){
             $data['status']=1;
           }
-
-          $response = $this->adminModel->addFee($data);
-          if($response === true){
-            flash('addFee','Fee Details Added!!','alert alert-success rounded');
-            $data = $this->adminModel->getFeeDetails($student_id);
+          if($this->adminModel->validateFeeMonth($data)){
+            $response = $this->adminModel->addFee($data);
+            if($response === true){
+              flash('addFee','Fee Details Added!!','alert alert-success rounded');
+              $data = $this->adminModel->getFeeDetails($student_id);
+            } else {
+              flash('addFee','Select Payment Method!!','alert alert-danger rounded');
+              $data = $this->adminModel->getFeeDetails($student_id);
+            }
           } else {
-            flash('addFee','Select Payment Method!!','alert alert-danger rounded');
-            $data = $this->adminModel->getFeeDetails($student_id);
+            flash('addFee','Fee of month '.ucfirst($data['fee_month']).' is already paid!!','alert alert-danger rounded');
+            $data=$this->adminModel->getFeeDetails($student_id);
           }
         } else {
           $data = array();
@@ -461,10 +465,12 @@
       }
     }
 
-    public function maintainattendance($student_id = "",$subject_id=""){
+    public function maintainattendance($student_id = "",$subject_id="",$details=""){
       if(is_Numeric($student_id) && $student_id != ""){
         if($subject_id != "") {
-          if(is_Numeric($subject_id) && $subject_id>0 && $subject_id<8){
+          if($details != ""){
+            $data = $this->adminModel->getAttendanceOfASubjectDetails($student_id,$subject_id);
+          } else if(is_Numeric($subject_id) && $subject_id>0 && $subject_id<8){
             if($_SERVER['REQUEST_METHOD']=="POST"){
               $attendance = strtolower($_POST['attendance']);
               $attendance_increment_by = 0;
@@ -487,10 +493,11 @@
                 flash("attendanceUpdateResult","Internal error try after sometime!!","alert alert-danger rounded");
               }
             }
+            $data = $this->adminModel->getAttendanceDetails($student_id);
           } else {
             flash("attendanceUpdateResult","Unknown Subject!!","alert alert-danger rounded");
+            $data = $this->adminModel->getAttendanceDetails($student_id);
           }
-          $data = $this->adminModel->getAttendanceDetails($student_id);
           $this->view('admin/maintainattendance',$data);
         } else {
           $data = array();

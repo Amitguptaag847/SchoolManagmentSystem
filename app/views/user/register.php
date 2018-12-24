@@ -38,7 +38,7 @@
                   </div>
                   <div class="row">
                     <div class="col form-group mb-0">
-                      <input type="date" name="date_of_birth" class="form-control" value="<?= $data['date_of_birth']; ?>" required>
+                      <input type="date" name="date_of_birth" class="form-control" value="<?= $data['date_of_birth']; ?>" min="2000-02-11" max="2015-03-31" required>
                     </div>
                     <div class="col form-group mb-0">
                       <select class="form-control" name="gender" required>

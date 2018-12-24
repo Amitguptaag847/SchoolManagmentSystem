@@ -94,12 +94,12 @@
         $this->db->execute();
 
         //Initializing the attendance data
-        for($i=1;$i<=7;$i++){
-          $this->db->query('INSERT INTO `sms`.`attendance` (user_id,subject_id) values (:user_id,:subject_id)');
-          $this->db->bind(':user_id',$user_id);
-          $this->db->bind(':subject_id',$i);
-          $this->db->execute();
-        }
+        // for($i=1;$i<=7;$i++){
+        //   $this->db->query('INSERT INTO `sms`.`attendance` (user_id,subject_id) values (:user_id,:subject_id)');
+        //   $this->db->bind(':user_id',$user_id);
+        //   $this->db->bind(':subject_id',$i);
+        //   $this->db->execute();
+        // }
 
         $this->db->commit();
         return true;
@@ -489,25 +489,39 @@
     }
 
     public function getAttendanceDetails($student_id){
-      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE user_id = :user_id');
-      $this->db->bind(':user_id',$student_id);
+      $this->db->query('SELECT * FROM `sms`.`subjects`');
 
-      $attendance = $this->db->resultSet();
+      $subjectData = $this->db->resultSet();
 
       $dataArray = array();
 
-      foreach ($attendance as $key => $value) {
-        $this->db->query('SELECT * FROM `sms`.`subjects` WHERE subject_id = :subject_id');
+      foreach ($subjectData as $key => $value) {
+        $this->db->query('SELECT * FROM `sms`.`attendance` WHERE subject_id = :subject_id AND user_id = :user_id');
         $this->db->bind(':subject_id',$value->subject_id);
+        $this->db->bind(':user_id',$student_id);
 
-        $subjectData = $this->db->single();
+        $attendanceData = $this->db->resultSet();
 
         $data = array();
-        $data['subject'] = $subjectData->subject_name;
-        $data['subject_id'] = $subjectData->subject_id;
-        $data['attended'] = $value->attended;
-        $data['cancel'] = $value->cancel;
-        $data['total'] = $value->total;
+        $data['subject'] = $value->subject_name;
+        $data['subject_id'] = $value->subject_id;
+        $data['total'] = $this->db->rowCount();
+        if($data['total']==0){
+          $data['attended'] = 0;
+          $data['cancel'] = 0;
+        } else {
+          $count1 = 0;
+          $count2 = 0;
+          foreach ($attendanceData as $key1 => $value1) {
+            if($value1->attended==1){
+              $count1++;
+            } else if($value1->cancel==1) {
+              $count2++;
+            }
+          }
+          $data['attended']=$count1;
+          $data['cancel']=$count2;
+        }
 
         $dataArray[$key] = $data;
       }
@@ -516,22 +530,26 @@
       return $dataArray;
     }
 
-    public function updateAttendance($student_id,$subject_id,$attendance_increment_by,$cancel_increment_by){
-      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE user_id = :user_id AND subject_id = :subject_id');
-      $this->db->bind(':user_id',$student_id);
+    public function getAttendanceOfASubjectDetails($student_id,$subject_id){
+      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE subject_id = :subject_id AND user_id = :user_id');
       $this->db->bind(':subject_id',$subject_id);
-      $data = $this->db->single();
+      $this->db->bind(':user_id',$student_id);
+      $dataArray = $this->db->resultSet();
 
-      $attended = $attendance_increment_by + $data->attended;
-      $cancel = $cancel_increment_by + $data->cancel;
-      $total = 1 + $data->total;
+      $dataArray['student_id']=$student_id;
 
+      $dataArray['details']=true;
+
+      return $dataArray;
+    }
+
+    public function updateAttendance($student_id,$subject_id,$attended,$cancel){
       $this->db->beginTransaction();
       try {
-        $this->db->query('UPDATE `sms`.`attendance` SET attended = :attended , cancel = :cancel , total =:total WHERE user_id = :user_id AND subject_id = :subject_id');
+        $this->db->query('INSERT INTO `sms`.`attendance` (date ,attended, cancel, user_id, subject_id) VALUES (:date,:attended,:cancel,:user_id,:subject_id)');
         $this->db->bind(':attended',$attended);
+        $this->db->bind(':date',date('Y:m:d', time()));
         $this->db->bind(':cancel',$cancel);
-        $this->db->bind(':total',$total);
         $this->db->bind(':user_id',$student_id);
         $this->db->bind(':subject_id',$subject_id);
         $this->db->execute();
@@ -558,7 +576,6 @@
       return $data;
     }
 
-
     public function addFee($data){
       $this->db->beginTransaction();
       try{
@@ -576,6 +593,19 @@
       } catch (PDOException $e) {
         $this->db->rollBack();
         return false;
+      }
+    }
+
+    public function validateFeeMonth($data){
+      $this->db->query("SELECT * FROM `sms`.`fee` WHERE fee_month = :fee_month AND user_id = :user_id");
+      $this->db->bind(":user_id",$data['student_id']);
+      $this->db->bind(":fee_month",$data['fee_month']);
+      $this->db->execute();
+
+      if($this->db->rowCount() > 0){
+        return false;
+      } else {
+        return true;
       }
     }
   }

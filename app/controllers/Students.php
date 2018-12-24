@@ -19,9 +19,14 @@
       $this->view('student/feedetails',$data);
     }
 
-    public function attendance(){
-      $data = $this->studentModel->getAttendance(getUserId());
-      $this->view('student/attendance',$data);
+    public function attendance($subject_id=""){
+      if($subject_id!=""){
+        $data = $this->studentModel->getAttendanceOfASubjectDetails(getUserId(),$subject_id);
+        $this->view('student/attendance',$data);
+      } else {
+        $data = $this->studentModel->getAttendance(getUserId());
+        $this->view('student/attendance',$data);
+      }
     }
 
     public function editprofile(){

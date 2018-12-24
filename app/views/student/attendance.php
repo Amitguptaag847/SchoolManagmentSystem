@@ -78,6 +78,7 @@
         </ol>
       </nav>
 
+      <?php if(!isset($data['details'])): ?>
       <div class="row m-0">
         <div class="col">
           <table class="table table-striped table-secondary table-hover">
@@ -85,9 +86,10 @@
               <tr class="text-center">
                 <th scope="col">Subjects</th>
                 <th scope="col">Attended</th>
-                <th scope="col">Total Classes </th>
                 <th scope="col">Classes Canceled </th>
+                <th scope="col">Total Classes </th>
                 <th scope="col">Percentage Of Attendance</th>
+                <th scope="col">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -98,12 +100,40 @@
                 <td><?= $value['cancel']; ?></td>
                 <td><?= $value['total']; ?></td>
                 <td><?php if($value['total']!=0){ echo round($value['attended']*100/($value['total']-$value['cancel']));} else { echo  0;} ?>%</td>
+                <td><a href="<?= URLROOT; ?>/students/attendance/<?= $value['subject_id']; ?>" class="text-primary"><i class="fas fa-file-alt"></i> Details</a></td>
+
               </tr>
               <?php endforeach; ?>
             </tbody>
           </table>
         </div>
       </div>
+      <?php endif; ?>
+
+      <?php if(isset($data['details'])): ?>
+      <div class="row m-0">
+        <div class="col-4">
+          <table class="table table-striped table-secondary table-hover">
+            <thead class="bg-info text-white">
+              <tr class="text-center">
+                <th scope="col">Date</th>
+                <th scope="col">Attendance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($data as $key => $value): ?>
+              <?php if($key!=="student_id" && $key!=="details"): ?>
+              <tr class="text-center">
+                <td><?= $value->date; ?></td>
+                <?php if($value->attended==1){echo "<td class='text-success'>Present</td>";} else if($value->cancel==1){echo "<td class='text-info'>Canceled</td>";} else {echo "<td class='text-danger'>Absent</td>";}?>
+              </tr>
+              <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <?php endif; ?>
 
     </div>
   </div>

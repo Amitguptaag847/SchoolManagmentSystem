@@ -134,27 +134,53 @@
     }
 
     public function getAttendance($user_id){
-      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE user_id = :user_id');
-      $this->db->bind(':user_id',$user_id);
+      $this->db->query('SELECT * FROM `sms`.`subjects`');
 
-      $attendance = $this->db->resultSet();
+      $subjectData = $this->db->resultSet();
 
       $dataArray = array();
 
-      foreach ($attendance as $key => $value) {
-        $this->db->query('SELECT * FROM `sms`.`subjects` WHERE subject_id = :subject_id');
+      foreach ($subjectData as $key => $value) {
+        $this->db->query('SELECT * FROM `sms`.`attendance` WHERE subject_id = :subject_id AND user_id = :user_id');
         $this->db->bind(':subject_id',$value->subject_id);
+        $this->db->bind(':user_id',$user_id);
 
-        $subjectData = $this->db->single();
+        $attendanceData = $this->db->resultSet();
 
         $data = array();
-        $data['subject'] = $subjectData->subject_name;
-        $data['attended'] = $value->attended;
-        $data['cancel'] = $value->cancel;
-        $data['total'] = $value->total;
+        $data['subject'] = $value->subject_name;
+        $data['subject_id'] = $value->subject_id;
+        $data['total'] = $this->db->rowCount();
+        if($data['total']==0){
+          $data['attended'] = 0;
+          $data['cancel'] = 0;
+        } else {
+          $count1 = 0;
+          $count2 = 0;
+          foreach ($attendanceData as $key1 => $value1) {
+            if($value1->attended==1){
+              $count1++;
+            } else if($value1->cancel==1) {
+              $count2++;
+            }
+          }
+          $data['attended']=$count1;
+          $data['cancel']=$count2;
+        }
 
         $dataArray[$key] = $data;
       }
+
+      return $dataArray;
+    }
+
+    public function getAttendanceOfASubjectDetails($student_id,$subject_id){
+      $this->db->query('SELECT * FROM `sms`.`attendance` WHERE subject_id = :subject_id AND user_id = :user_id');
+      $this->db->bind(':subject_id',$subject_id);
+      $this->db->bind(':user_id',$student_id);
+      $dataArray = $this->db->resultSet();
+
+      $dataArray['details']=true;
 
       return $dataArray;
     }

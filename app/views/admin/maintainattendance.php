@@ -194,7 +194,7 @@
 
       <!--Student Details-->
       <?php //if admin is viewing any profile ?>
-      <?php if(isset($data['student_id'])): ?>
+      <?php if(isset($data['student_id']) && !isset($data['details'])): ?>
       <div class="row m-0">
         <div class="col">
           <?php flash("attendanceUpdateResult"); ?>
@@ -203,12 +203,13 @@
               <tr class="text-center">
                 <th scope="col">Subjects</th>
                 <th scope="col">Attended</th>
-                <th scope="col">Classes Canceled </th>
+                <th scope="col">Canceled </th>
                 <th scope="col">Total Classes </th>
                 <th scope="col">Percentage Of Attendance</th>
                 <th scope="col">Present</th>
                 <th scope="col">Absent</th>
                 <th scope="col">Class Cancel</th>
+                <th scope="col">Details</th>
               </tr>
             </thead>
             <tbody>
@@ -225,6 +226,34 @@
                   <td><input type="submit" name="attendance" class="btn btn-sm btn-secondary" value="Absent"></td>
                   <td><input type="submit" name="attendance" class="btn btn-sm btn-danger" value="Cancel"></td>
                 </form>
+                <td><a href="<?= URLROOT; ?>/admins/maintainattendance/<?= $data['student_id']; ?>/<?= $value['subject_id']; ?>/details" class="text-primary"><i class="fas fa-file-alt"></i> Details</a></td>
+              </tr>
+              <?php endif; ?>
+              <?php endforeach; ?>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <?php endif; ?>
+
+
+      <?php //if admin is viewing any profile ?>
+      <?php if(isset($data['details'])): ?>
+      <div class="row m-0">
+        <div class="col-4">
+          <table class="table table-striped table-secondary table-hover">
+            <thead class="bg-info text-white">
+              <tr class="text-center">
+                <th scope="col">Date</th>
+                <th scope="col">Attendance</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($data as $key => $value): ?>
+              <?php if($key!=="student_id" && $key!=="details"): ?>
+              <tr class="text-center">
+                <td><?= $value->date; ?></td>
+                <?php if($value->attended==1){echo "<td class='text-success'>Present</td>";} else if($value->cancel==1){echo "<td class='text-info'>Canceled</td>";} else {echo "<td class='text-danger'>Absent</td>";}?>
               </tr>
               <?php endif; ?>
               <?php endforeach; ?>
